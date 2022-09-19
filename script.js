@@ -1,3 +1,13 @@
+let playerScore = 0;
+let computerScore = 0;
+
+function appendP(text) {
+    let div = document.getElementById("div1"), 
+        p = document.createElement('p');
+    p.innerHTML = text;
+    div.append(p);
+}
+
 function computerChoice() {
     const choice = Math.floor(Math.random() * 3);
     switch (choice) {
@@ -20,7 +30,7 @@ function computerChoice() {
 }
 
 function playerChoice() {
-    const player = prompt('Choose rock, paper or scissors').toLowerCase();
+    const player = prompt('Choose rock, paper or scissors');
     return player;
 }
 
@@ -31,22 +41,40 @@ function compareChoices(player, computer) {
         } else if ((player === 'rock' && computer === 'scissors') || 
                     (player === 'paper' && computer === 'rock') || 
                     (player === 'scissors' && computer === 'paper')) {
-            return `You won! You chose ${player} and computer chose ${computer}`;
+                    playerScore++;
+                    return `You won! You chose ${player} and computer chose ${computer}.`;
         } else {
-            return `You lost! You chose ${player} and computer chose ${computer}`
+            computerScore++;
+            return `You lost! You chose ${player} and computer chose ${computer}.`
         }
     } else {
         return `Your choice is invalid, ${player} is not an option.`
     }
 }
 
-
 function playRound() {
     let player = playerChoice();
-    let computer = computerChoice();
-    let outcome = compareChoices(player, computer);
-    
-    document.getElementById("p1").innerText = outcome;
+    if (player === null || player === undefined || player === '') {
+        appendP('You didn\'t choose anything, you lose this round.');
+    } else {
+        player = player.toLowerCase();
+        let computer = computerChoice();
+        let outcome = compareChoices(player, computer);
+        appendP(outcome);
+    }
 }
 
-playRound();
+function game() {
+    for (let index = 0; index < 5; index++) {
+        playRound();
+    }
+    if (playerScore === computerScore) {
+        appendP(`Draw!`);
+    } else if (playerScore < computerScore) {
+        appendP(`Computer wins! Your score is ${playerScore} and computer score is ${computerScore}.`);
+    } else {
+        appendP(`Player wins! Your score is ${playerScore} and computer score is ${computerScore}.`)
+    }
+}
+
+game();
