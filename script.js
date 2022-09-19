@@ -48,7 +48,8 @@ function compareChoices(player, computer) {
             return `You lost! You chose ${player} and computer chose ${computer}.`
         }
     } else {
-        return `Your choice is invalid, ${player} is not an option.`
+        computerScore++
+        return `Your choice is invalid, ${player} is not an option. Computer gets point.`
     }
 }
 
