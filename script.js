@@ -18,3 +18,10 @@ function computerChoice() {
             break;
     }
 }
+
+function playerChoice() {
+    player = prompt('Choose rock, paper or scissors').toLowerCase();
+    return player;
+}
+
+playerChoice();
